@@ -32,7 +32,6 @@
             this.bLogin = new System.Windows.Forms.Button();
             this.bReg = new System.Windows.Forms.Button();
             this.tbPsw = new System.Windows.Forms.TextBox();
-            this.lErorr = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tdEmail
@@ -70,22 +69,11 @@
             this.tbPsw.TabIndex = 3;
             this.tbPsw.Text = "Password";
             // 
-            // lErorr
-            // 
-            this.lErorr.AutoSize = true;
-            this.lErorr.Location = new System.Drawing.Point(304, 94);
-            this.lErorr.Name = "lErorr";
-            this.lErorr.Size = new System.Drawing.Size(35, 13);
-            this.lErorr.TabIndex = 4;
-            this.lErorr.Text = "label1";
-            this.lErorr.Visible = false;
-            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lErorr);
             this.Controls.Add(this.tbPsw);
             this.Controls.Add(this.bReg);
             this.Controls.Add(this.bLogin);
@@ -103,7 +91,6 @@
         private System.Windows.Forms.Button bLogin;
         private System.Windows.Forms.Button bReg;
         private System.Windows.Forms.TextBox tbPsw;
-        private System.Windows.Forms.Label lErorr;
     }
 }
 

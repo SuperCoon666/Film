@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +23,8 @@ namespace Film
 
         private void bLogin_Click(object sender, EventArgs e)
         {
+
+
             if (tdEmail.Text == useremail && tbPsw.Text == userpsw && tdEmail.Text!=null&& tbPsw.Text != null) // проверка регистрации пользователя
             {
                 FormPage formPage = new FormPage();
@@ -30,23 +33,23 @@ namespace Film
             }
             else
             {
-                if (tdEmail.Text != useremail) 
+               if (tdEmail.Text=="" && tbPsw.Text=="") 
                 {
-                    lErorr.Text = "Incorrect user email"; 
+                    MessageBox.Show("Enter passwor and email"); 
+                }
+               else if (tdEmail.Text != useremail ) 
+                {
+                    MessageBox.Show("Incorrect user email");
                 }
                 else if (tbPsw.Text != userpsw) 
                 {
-                    lErorr.Text = "Incorrect user password "; 
+                    MessageBox.Show("Incorrect user password "); 
                 }
                 else if (tdEmail.Text != useremail&& tbPsw.Text != userpsw) 
                 {
-                    lErorr.Text = "Incorrect user password ";
+                    MessageBox.Show("Incorrect user password ");
                 }
-                else 
-                {
-                    lErorr.Text = "Enter passwor and email";
-                }
-                lErorr.Visible = true;
+               
             }
         }
     }

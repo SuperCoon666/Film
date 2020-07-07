@@ -24,8 +24,9 @@ namespace Film
 
         private void bShare_Click(object sender, EventArgs e)
         {
+            DB dB = new DB();
+            dB.share();
             //if есть результаты поиска
-
         }
     }
 }
