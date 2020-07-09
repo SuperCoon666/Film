@@ -14,9 +14,6 @@ namespace Film
 {
     public partial class FormLogin : Form
     {
-        //
-        string useremail ="em"; // переменная в которую передаем почту 
-        string userpsw="ps"; // переменная в которую передаем пароль 
         public FormLogin()
         {
             InitializeComponent();
@@ -31,10 +28,8 @@ namespace Film
         private void bLogin_Click(object sender, EventArgs e)
         {
 
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            //connection.ConnectionString = @"Data Source = D:\Базы данных\SchoolDB.db";
-            connection.Open();
+            DB dB = new DB();
+            dB.conetc();
 
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';";
@@ -65,24 +60,16 @@ namespace Film
 
         private void bReg_Click(object sender, EventArgs e)
         {
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            //connection.ConnectionString = @"Data Source = D:\Базы данных\SchoolDB.db";
-            connection.Open();
-            MessageBox.Show("Connect ");
-
-            //string sql = "INSERT users (login, psw) VALUES ('" + tbLogin.Text+"','"+ tbPsw.Text +"')";
+            DB dB = new DB();
+            dB.conetc();
             SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", connection);
             command.ExecuteNonQuery();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            //connection.ConnectionString = @"Data Source = D:\Базы данных\SchoolDB.db";
-            connection.Open();
+            DB dB = new DB();
+            dB.conetc();
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", connection);
             table = new DataTable();

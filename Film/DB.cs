@@ -4,15 +4,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace Film
 {
    public class DB
     {
-        public void share() 
+        public void conetc() 
         {
-            //запрос поиска в БД
-            
+            SQLiteConnection connection = new SQLiteConnection();
+            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
+            connection.Open();
+
         }
     }
 }
