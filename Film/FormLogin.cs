@@ -31,18 +31,19 @@ namespace Film
             //DB dB = new DB();
             //dB.conetc();
 
+
+            // эти три строчки осуществляют коннект к бд
             SQLiteConnection connection = new SQLiteConnection();
             connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
             connection.Open();
 
-            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';";
-
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, connection);
             table = new DataTable();
             adapter.Fill(table);
 
 
-            if (table.Rows.Count == 1)//tbLogin.Text == useremail && tbPsw.Text == userpsw && tbLogin.Text != null&& tbPsw.Text != null) // проверка регистрации пользователя
+            if (table.Rows.Count == 1) //проверка регистрации пользователя
             {
                 FormPage formPage = new FormPage();
                 formPage.Show();
@@ -50,13 +51,13 @@ namespace Film
             }
             else
             {
-               if (tbLogin.Text == "" && tbPsw.Text=="") 
+               if (tbLogin.Text == "" || tbPsw.Text=="") //если одно из полей незаполнено
                 {
                     MessageBox.Show("Enter password and login"); 
                 }
                else
                 {
-                    MessageBox.Show("Incorrect user email or password ");
+                    MessageBox.Show("Incorrect user email or password "); //если не найдено совпадений
                 }
             }
         }
@@ -70,19 +71,19 @@ namespace Film
             connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
             connection.Open();
 
-            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';";
-            if (table.Rows.Count == 1)
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //проверка регистрации пользователя
+            if (table.Rows.Count == 1)// существует,вывод ошибки
             {
                 MessageBox.Show("This user already exists");
             }
-            else 
+            else //не существует,регестрируем
             {
                 SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", connection);
                 command.ExecuteNonQuery();
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //тестовое, нужно для отображения содержмого таблицы
         {
             //DB dB = new DB();
             //dB.conetc();
