@@ -18,7 +18,7 @@ namespace Film
         {
             InitializeComponent();
         }
-        SQLiteConnection connection= new SQLiteConnection();
+        //SQLiteConnection connection= new SQLiteConnection();
         DataTable table;
         private void FormLogin_Load(object sender, EventArgs e)
         {
@@ -28,9 +28,12 @@ namespace Film
         private void bLogin_Click(object sender, EventArgs e)
         {
 
-            DB dB = new DB();
-            dB.conetc();
+            //DB dB = new DB();
+            //dB.conetc();
 
+            SQLiteConnection connection = new SQLiteConnection();
+            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
+            connection.Open();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';";
 
@@ -60,16 +63,33 @@ namespace Film
 
         private void bReg_Click(object sender, EventArgs e)
         {
-            DB dB = new DB();
-            dB.conetc();
-            SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", connection);
-            command.ExecuteNonQuery();
+            //DB dB = new DB();
+            //dB.conetc();
+
+            SQLiteConnection connection = new SQLiteConnection();
+            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
+            connection.Open();
+
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';";
+            if (table.Rows.Count == 1)
+            {
+                MessageBox.Show("This user already exists");
+            }
+            else 
+            {
+                SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", connection);
+                command.ExecuteNonQuery();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DB dB = new DB();
-            dB.conetc();
+            //DB dB = new DB();
+            //dB.conetc();
+
+            SQLiteConnection connection = new SQLiteConnection();
+            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
+            connection.Open();
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", connection);
             table = new DataTable();
