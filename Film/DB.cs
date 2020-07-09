@@ -12,6 +12,7 @@ namespace Film
         public void share() 
         {
             //запрос поиска в БД
+            
         }
     }
 }

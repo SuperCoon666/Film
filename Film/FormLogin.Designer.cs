@@ -28,19 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tdEmail = new System.Windows.Forms.TextBox();
             this.bLogin = new System.Windows.Forms.Button();
             this.bReg = new System.Windows.Forms.Button();
             this.tbPsw = new System.Windows.Forms.TextBox();
+            this.lLogin = new System.Windows.Forms.Label();
+            this.lPsw = new System.Windows.Forms.Label();
+            this.tbLogin = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tdEmail
-            // 
-            this.tdEmail.Location = new System.Drawing.Point(251, 138);
-            this.tdEmail.Name = "tdEmail";
-            this.tdEmail.Size = new System.Drawing.Size(173, 20);
-            this.tdEmail.TabIndex = 0;
-            this.tdEmail.Text = "Email";
             // 
             // bLogin
             // 
@@ -60,6 +57,7 @@
             this.bReg.TabIndex = 2;
             this.bReg.Text = "Registration";
             this.bReg.UseVisualStyleBackColor = true;
+            this.bReg.Click += new System.EventHandler(this.bReg_Click);
             // 
             // tbPsw
             // 
@@ -67,30 +65,81 @@
             this.tbPsw.Name = "tbPsw";
             this.tbPsw.Size = new System.Drawing.Size(173, 20);
             this.tbPsw.TabIndex = 3;
-            this.tbPsw.Text = "Password";
+            // 
+            // lLogin
+            // 
+            this.lLogin.AutoSize = true;
+            this.lLogin.Location = new System.Drawing.Point(308, 95);
+            this.lLogin.Name = "lLogin";
+            this.lLogin.Size = new System.Drawing.Size(33, 13);
+            this.lLogin.TabIndex = 4;
+            this.lLogin.Text = "Login";
+            // 
+            // lPsw
+            // 
+            this.lPsw.AutoSize = true;
+            this.lPsw.Location = new System.Drawing.Point(298, 157);
+            this.lPsw.Name = "lPsw";
+            this.lPsw.Size = new System.Drawing.Size(53, 13);
+            this.lPsw.TabIndex = 5;
+            this.lPsw.Text = "Password";
+            // 
+            // tbLogin
+            // 
+            this.tbLogin.Location = new System.Drawing.Point(251, 124);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(173, 20);
+            this.tbLogin.TabIndex = 6;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(501, 12);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 7;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(501, 212);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.tbLogin);
+            this.Controls.Add(this.lPsw);
+            this.Controls.Add(this.lLogin);
             this.Controls.Add(this.tbPsw);
             this.Controls.Add(this.bReg);
             this.Controls.Add(this.bLogin);
-            this.Controls.Add(this.tdEmail);
             this.Name = "FormLogin";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormLogin_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tdEmail;
         private System.Windows.Forms.Button bLogin;
         private System.Windows.Forms.Button bReg;
         private System.Windows.Forms.TextBox tbPsw;
+        private System.Windows.Forms.Label lLogin;
+        private System.Windows.Forms.Label lPsw;
+        private System.Windows.Forms.TextBox tbLogin;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
