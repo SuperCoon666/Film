@@ -28,20 +28,12 @@ namespace Film
         private void bLogin_Click(object sender, EventArgs e)
         {
 
-            //DB dB = new DB();
-            //dB.conetc();
-
-
-            // эти три строчки осуществляют коннект к бд
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            connection.Open();
-
+            // этo осуществляют коннект к бд
+            DB.conetc();
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, connection);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
             table = new DataTable();
             adapter.Fill(table);
-
 
             if (table.Rows.Count == 1) //проверка регистрации пользователя
             {
@@ -64,8 +56,6 @@ namespace Film
 
         private void bReg_Click(object sender, EventArgs e)
         {
-            //DB dB = new DB();
-            //dB.conetc();
 
             SQLiteConnection connection = new SQLiteConnection();
             connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
@@ -85,14 +75,8 @@ namespace Film
 
         private void button1_Click(object sender, EventArgs e) //тестовое, нужно для отображения содержмого таблицы
         {
-            //DB dB = new DB();
-            //dB.conetc();
-
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            connection.Open();
-
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", connection);
+            DB.conetc();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", DB.connection);
             table = new DataTable();
             adapter.Fill(table);
             dataGridView1.DataSource = table;

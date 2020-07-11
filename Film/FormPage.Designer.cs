@@ -38,7 +38,7 @@
             this.LBRecommend.FormattingEnabled = true;
             this.LBRecommend.Location = new System.Drawing.Point(-2, 295);
             this.LBRecommend.Name = "LBRecommend";
-            this.LBRecommend.Size = new System.Drawing.Size(495, 147);
+            this.LBRecommend.Size = new System.Drawing.Size(226, 147);
             this.LBRecommend.TabIndex = 0;
             // 
             // textBox1

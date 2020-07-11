@@ -10,9 +10,10 @@ namespace Film
 {
    public class DB
     {
-        public void conetc() 
+        public static SQLiteConnection connection = new SQLiteConnection();
+        public static void conetc() 
         {
-            SQLiteConnection connection = new SQLiteConnection();
+           // SQLiteConnection connection = new SQLiteConnection();
             connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
             connection.Open();
 
