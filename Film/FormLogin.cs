@@ -19,7 +19,7 @@ namespace Film
             InitializeComponent();
         }
         //SQLiteConnection connection= new SQLiteConnection();
-        DataTable table= new DataTable();
+        public static DataTable table= new DataTable();
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
@@ -31,8 +31,7 @@ namespace Film
             DB.conetc();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
-            adapter.Fill(table);
+            DB.usradapt(sql);
 
             if (table.Rows.Count == 1) //проверка регистрации пользователя
             {
@@ -58,8 +57,7 @@ namespace Film
             DB.conetc();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //проверка регистрации пользователя
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
-            adapter.Fill(table);
+            DB.usradapt(sql);
 
             if (table.Rows.Count == 1)// существует,вывод ошибки
             {
@@ -67,16 +65,19 @@ namespace Film
             }
             else //не существует,регестрируем
             {
-                SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", DB.connection);
-                command.ExecuteNonQuery();
+                string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')";
+                DB.command(sqlcom);
             }
         }
 
         private void button1_Click(object sender, EventArgs e) //тестовое, нужно для отображения содержмого таблицы
         {
             DB.conetc();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", DB.connection);
-            adapter.Fill(table);
+
+            string sql = "SELECT* FROM users;";
+
+            DB.usradapt(sql);
+
             dataGridView1.DataSource = table;
         }
     }
