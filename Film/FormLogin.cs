@@ -19,7 +19,7 @@ namespace Film
             InitializeComponent();
         }
         //SQLiteConnection connection= new SQLiteConnection();
-        DataTable table;
+        DataTable table= new DataTable();
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
@@ -27,12 +27,11 @@ namespace Film
 
         private void bLogin_Click(object sender, EventArgs e)
         {
-
             // этo осуществляют коннект к бд
             DB.conetc();
+
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
-            table = new DataTable();
             adapter.Fill(table);
 
             if (table.Rows.Count == 1) //проверка регистрации пользователя
@@ -44,31 +43,31 @@ namespace Film
             else
             {
                if (tbLogin.Text == "" || tbPsw.Text=="") //если одно из полей незаполнено
-                {
+               {
                     MessageBox.Show("Enter password and login"); 
-                }
+               }
                else
-                {
+               {
                     MessageBox.Show("Incorrect user email or password "); //если не найдено совпадений
-                }
+               }
             }
         }
 
         private void bReg_Click(object sender, EventArgs e)
         {
-
-            SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
-            connection.Open();
+            DB.conetc();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //проверка регистрации пользователя
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
+            adapter.Fill(table);
+
             if (table.Rows.Count == 1)// существует,вывод ошибки
             {
                 MessageBox.Show("This user already exists");
             }
             else //не существует,регестрируем
             {
-                SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", connection);
+                SQLiteCommand command = new SQLiteCommand("INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')", DB.connection);
                 command.ExecuteNonQuery();
             }
         }
@@ -77,7 +76,6 @@ namespace Film
         {
             DB.conetc();
             SQLiteDataAdapter adapter = new SQLiteDataAdapter("SELECT* FROM users;", DB.connection);
-            table = new DataTable();
             adapter.Fill(table);
             dataGridView1.DataSource = table;
         }
