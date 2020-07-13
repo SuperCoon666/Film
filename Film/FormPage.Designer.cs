@@ -32,6 +32,8 @@
             this.bShare = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.bReccomend = new System.Windows.Forms.Button();
+            this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,11 +77,30 @@
             this.bReccomend.UseVisualStyleBackColor = true;
             this.bReccomend.Click += new System.EventHandler(this.bReccomend_Click);
             // 
+            // sqliteCommand1
+            // 
+            this.sqliteCommand1.CommandText = null;
+            this.sqliteCommand1.CommandTimeout = 30;
+            this.sqliteCommand1.Connection = null;
+            this.sqliteCommand1.Transaction = null;
+            this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Location = new System.Drawing.Point(396, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 15);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Какой-то результат - ";
+            // 
             // FormPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.bReccomend);
             this.Controls.Add(this.dgvResult);
             this.Controls.Add(this.bShare);
@@ -98,5 +119,7 @@
         private System.Windows.Forms.Button bShare;
         private System.Windows.Forms.DataGridView dgvResult;
         private System.Windows.Forms.Button bReccomend;
+        private Microsoft.Data.Sqlite.SqliteCommand sqliteCommand1;
+        private System.Windows.Forms.Label label1;
     }
 }

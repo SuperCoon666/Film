@@ -19,11 +19,17 @@ namespace Film
             InitializeComponent();
         }
         public static DataTable table= new DataTable();
+        public static  string Ed = "!!!!";
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            textBox1.Visible = true;
-            button1.Visible = true;
-            dataGridView1.Visible = true;
+
+        }
+
+
+        public static string Ed1
+        {
+            get { return Ed; }
+            set { Ed = value; }
         }
 
         private void bLogin_Click(object sender, EventArgs e)
@@ -39,6 +45,10 @@ namespace Film
                 FormPage formPage = new FormPage();
                 formPage.Show();
                 this.Hide();
+
+                Ed = tbLogin.Text;
+                formPage.textbox1value = Ed;
+
                 DB.connection.Close();
             }
             else
@@ -54,6 +64,7 @@ namespace Film
             }
             DB.connection.Close();
         }
+
 
         private void bReg_Click(object sender, EventArgs e)
         {

@@ -18,26 +18,55 @@ namespace Film
             InitializeComponent();
         }
         public static DataTable table = new DataTable();
-        private void FormPage_Load(object sender, EventArgs e)
+        string nameuser; // переменная, в которую передаётся логин, под которым зашел юзер
+
+        public void FormPage_Load(object sender, EventArgs e)
         {
             
         }
 
+
+        public string textbox1value
+        {
+            get { return nameuser; }
+            set { nameuser = value; }
+        }
+
+
         private void bShare_Click(object sender, EventArgs e)
         {
             DB.conetc();
+            string sql;
 
-            string sql = "SELECT * FROM films WHERE NameFilm = '" + tbShare.Text.Replace(" ", "") + "';";
-            DB.usradapt(sql,2);
+            sql = "SELECT * FROM films WHERE NameFilm = '" + tbShare.Text.Replace(" ", "") + "';";
+            DB.usradapt(sql, 2);
 
             if (table.Rows.Count == 1)// существует,вывод фильма
             {
-                table = new DataTable();
-                string sql2 = "SELECT NameFilm FROM films WHERE NameFilm = '" + tbShare.Text + "';";
 
-                DB.usradapt(sql2,2);
+                table = new DataTable();
+                sql = "SELECT tags FROM films WHERE NameFilm = '" + tbShare.Text + "';";
+                DB.usradapt(sql, 2);
+
+                string[] words = table.Rows[0]["tags"].ToString().Split('/');
+                
+                foreach (var word in words)
+                {
+                    //label1.Text += $"\n{word}";
+                    string sqlcom = "UPDATE users SET history = '" + $"{word}/" + "' WHERE login= '" + nameuser + "';";
+                    DB.command(sqlcom);
+                }
+
+
+
+
+                table = new DataTable();
+                sql = "SELECT NameFilm FROM films WHERE NameFilm = '" + tbShare.Text + "';";
+
+                DB.usradapt(sql, 2);
 
                 dgvResult.DataSource = table;
+
             }
             else //не существует,вывод ошибки
             {
@@ -45,6 +74,7 @@ namespace Film
             }
             DB.connection.Close();
         }
+
 
         private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -54,8 +84,7 @@ namespace Film
 
         private void bReccomend_Click(object sender, EventArgs e)
         {
-            DB.conetc();
-
+            label1.Text = nameuser;
         }
     }
 }
