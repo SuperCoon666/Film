@@ -18,11 +18,12 @@ namespace Film
         {
             InitializeComponent();
         }
-        //SQLiteConnection connection= new SQLiteConnection();
         public static DataTable table= new DataTable();
         private void FormLogin_Load(object sender, EventArgs e)
         {
-
+            textBox1.Visible = true;
+            button1.Visible = true;
+            dataGridView1.Visible = true;
         }
 
         private void bLogin_Click(object sender, EventArgs e)
@@ -31,13 +32,14 @@ namespace Film
             DB.conetc();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
-            DB.usradapt(sql);
+            DB.usradapt(sql,1);
 
             if (table.Rows.Count == 1) //проверка регистрации пользователя
             {
                 FormPage formPage = new FormPage();
                 formPage.Show();
                 this.Hide();
+                DB.connection.Close();
             }
             else
             {
@@ -47,9 +49,10 @@ namespace Film
                }
                else
                {
-                    MessageBox.Show("Incorrect user email or password "); //если не найдено совпадений
+                    MessageBox.Show("Uncorrect password or login. \nCheck and try again"); //если не найдено совпадений
                }
             }
+            DB.connection.Close();
         }
 
         private void bReg_Click(object sender, EventArgs e)
@@ -57,7 +60,7 @@ namespace Film
             DB.conetc();
 
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //проверка регистрации пользователя
-            DB.usradapt(sql);
+            DB.usradapt(sql,1);
 
             if (table.Rows.Count == 1)// существует,вывод ошибки
             {
@@ -68,17 +71,21 @@ namespace Film
                 string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')";
                 DB.command(sqlcom);
             }
+            DB.connection.Close();
         }
 
         private void button1_Click(object sender, EventArgs e) //тестовое, нужно для отображения содержмого таблицы
         {
             DB.conetc();
 
-            string sql = "SELECT* FROM users;";
+            string sql = "SELECT* FROM tags;";
 
-            DB.usradapt(sql);
+            DB.usradapt(sql,1);
 
             dataGridView1.DataSource = table;
+
+            DB.connection.Close();
         }
+
     }
 }

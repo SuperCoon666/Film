@@ -107,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
+    <Compile Include="FormDialogRate1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDialogRate1.Designer.cs">
+      <DependentUpon>FormDialogRate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDialogRate1.resx">
+      <DependentUpon>FormDialogRate1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>

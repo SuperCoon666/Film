@@ -17,16 +17,39 @@ namespace Film
         {
             InitializeComponent();
         }
-
+        public static DataTable table = new DataTable();
         private void FormPage_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void bShare_Click(object sender, EventArgs e)
         {
+            DB.conetc();
 
-            //if есть результаты поиска
+            string sql = "SELECT * FROM films WHERE NameFilm = '" + tbShare.Text.Replace(" ", "") + "';";
+            DB.usradapt(sql,2);
+
+            if (table.Rows.Count == 1)// существует,вывод фильма
+            {
+                table = new DataTable();
+                string sql2 = "SELECT NameFilm FROM films WHERE NameFilm = '" + tbShare.Text + "';";
+
+                DB.usradapt(sql2,2);
+
+                dgvResult.DataSource = table;
+            }
+            else //не существует,вывод ошибки
+            {
+                MessageBox.Show("This movie does not exist");
+            }
+            DB.connection.Close();
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FormDialogRate1 formDialogRate1 = new FormDialogRate1();
+            formDialogRate1.ShowDialog();
         }
     }
 }
