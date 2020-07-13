@@ -51,5 +51,11 @@ namespace Film
             FormDialogRate1 formDialogRate1 = new FormDialogRate1();
             formDialogRate1.ShowDialog();
         }
+
+        private void bReccomend_Click(object sender, EventArgs e)
+        {
+            DB.conetc();
+
+        }
     }
 }

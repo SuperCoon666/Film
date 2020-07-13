@@ -31,6 +31,7 @@
             this.tbShare = new System.Windows.Forms.TextBox();
             this.bShare = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
+            this.bReccomend = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,18 +57,30 @@
             this.dgvResult.AllowUserToAddRows = false;
             this.dgvResult.AllowUserToDeleteRows = false;
             this.dgvResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResult.Location = new System.Drawing.Point(54, 142);
+            this.dgvResult.Location = new System.Drawing.Point(12, 208);
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.ReadOnly = true;
-            this.dgvResult.Size = new System.Drawing.Size(284, 184);
+            this.dgvResult.Size = new System.Drawing.Size(284, 230);
             this.dgvResult.TabIndex = 4;
             this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
+            // 
+            // bReccomend
+            // 
+            this.bReccomend.AutoSize = true;
+            this.bReccomend.Location = new System.Drawing.Point(13, 172);
+            this.bReccomend.Name = "bReccomend";
+            this.bReccomend.Size = new System.Drawing.Size(130, 23);
+            this.bReccomend.TabIndex = 5;
+            this.bReccomend.Text = "Show recommendations";
+            this.bReccomend.UseVisualStyleBackColor = true;
+            this.bReccomend.Click += new System.EventHandler(this.bReccomend_Click);
             // 
             // FormPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bReccomend);
             this.Controls.Add(this.dgvResult);
             this.Controls.Add(this.bShare);
             this.Controls.Add(this.tbShare);
@@ -84,5 +97,6 @@
         private System.Windows.Forms.TextBox tbShare;
         private System.Windows.Forms.Button bShare;
         private System.Windows.Forms.DataGridView dgvResult;
+        private System.Windows.Forms.Button bReccomend;
     }
 }
