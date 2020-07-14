@@ -96,12 +96,18 @@ namespace Film
             //List<string> pruv2 = new List<string>();
             //pruv2.Add("0");
 
-        //    bool first = false;
-            foreach (var word in histor) 
-            {
-                table = new DataTable();
-                sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                DB.usradapt(sql, 2);
+            table = new DataTable();
+            sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{5}%'";
+            DB.usradapt(sql, 2);
+
+
+            //bool first = false;
+            //foreach (var word in histor) 
+            //{
+            //    label1.Text += $"\n{word}";
+ 
+            //    sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
+            //    DB.usradapt(sql, 2);
 
                 //if (first == false)
                 //{
@@ -163,7 +169,7 @@ namespace Film
 
                 //}
 
-            }
+           // }
             
             dgvResult.DataSource = table;
             //dataGridView1.DataSource = tages;
