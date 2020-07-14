@@ -165,9 +165,9 @@ namespace Film
 
             }
             
-            //dgvResult.DataSource = table;
+            dgvResult.DataSource = table;
             //dataGridView1.DataSource = tages;
-            dataGridView2.DataSource = news;
+            //dataGridView2.DataSource = news;
 
             DB.connection.Close();
         }
