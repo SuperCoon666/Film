@@ -26,7 +26,7 @@ namespace Film
         }
 
 
-        public static string Ed1
+        public static string Ed1 // отправка логина юзера
         {
             get { return Ed; }
             set { Ed = value; }
