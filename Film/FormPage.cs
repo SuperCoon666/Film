@@ -44,7 +44,7 @@ namespace Film
             if (table.Rows.Count == 1)// существует,вывод фильма
             {
                 table = new DataTable(); // запрашиваю историю поиска
-                sql = "SELECT history FROM users" + " WHERE login= '" + nameuser + "';";
+                sql = "SELECT history FROM users WHERE login= '" + nameuser + "';";
                 DB.usradapt(sql, 2);
                 string[] histor = table.Rows[0]["history"].ToString().Split('/');
 
@@ -54,8 +54,8 @@ namespace Film
                 string[] tags = table.Rows[0]["tags"].ToString().Split('/');
 
 
-                string enter = String.Join("/", histor) + String.Join("/", tags); //функция Join объеденяет массив в одну строку, помещая между каждым елементом заданный разделитель
-                string sqlcom = "UPDATE users SET history ='" + $"{enter}/" + "' WHERE login= '" + nameuser + "';";
+                //функция Join объеденяет массив в одну строку, помещая между каждым елементом заданный разделитель
+                string sqlcom = "UPDATE users SET history ='" + $"{String.Join("/", histor) + String.Join("/", tags)}/" + "' WHERE login= '" + nameuser + "';";
                 DB.command(sqlcom);
 
 
@@ -63,16 +63,12 @@ namespace Film
                 //{
                 //    string sqlcom = "UPDATE users SET history ='" + $"{word}/" + "' WHERE login= '" + nameuser + "';";
                 //    DB.command(sqlcom);
-                //}
-
-
 
                 table = new DataTable();
                 sql = "SELECT NameFilm FROM films WHERE NameFilm = '" + tbShare.Text + "';";
-
                 DB.usradapt(sql, 2);
 
-                dgvResult.DataSource = table;
+                dgvResult.DataSource = table; //вывод искомого результата в объект dataGridView
 
             }
             else //не существует,вывод ошибки
