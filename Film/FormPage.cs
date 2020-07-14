@@ -26,7 +26,7 @@ namespace Film
         }
 
 
-        public string textbox1value
+        public string textbox1value // получаю логин пользователя
         {
             get { return nameuser; }
             set { nameuser = value; }
@@ -43,20 +43,27 @@ namespace Film
 
             if (table.Rows.Count == 1)// существует,вывод фильма
             {
+                table = new DataTable(); // запрашиваю историю поиска
+                sql = "SELECT history FROM users" + " WHERE login= '" + nameuser + "';";
+                DB.usradapt(sql, 2);
+                string[] histor = table.Rows[0]["history"].ToString().Split('/');
 
-                table = new DataTable();
+                table = new DataTable(); // запрашиваю теги фильма
                 sql = "SELECT tags FROM films WHERE NameFilm = '" + tbShare.Text + "';";
                 DB.usradapt(sql, 2);
+                string[] tags = table.Rows[0]["tags"].ToString().Split('/');
 
-                string[] words = table.Rows[0]["tags"].ToString().Split('/');
-                
-                foreach (var word in words)
-                {
-                    //label1.Text += $"\n{word}";
-                    string sqlcom = "UPDATE users SET history = '" + $"{word}/" + "' WHERE login= '" + nameuser + "';";
-                    DB.command(sqlcom);
-                }
 
+                string enter = String.Join("/", histor) + String.Join("/", tags); //функция Join объеденяет массив в одну строку, помещая между каждым елементом заданный разделитель
+                string sqlcom = "UPDATE users SET history ='" + $"{enter}/" + "' WHERE login= '" + nameuser + "';";
+                DB.command(sqlcom);
+
+
+                //foreach (var word in words) //заменить цикл на обычную вставку, этот цикл отправить в сортировку истории человека
+                //{
+                //    string sqlcom = "UPDATE users SET history ='" + $"{word}/" + "' WHERE login= '" + nameuser + "';";
+                //    DB.command(sqlcom);
+                //}
 
 
 
@@ -76,15 +83,15 @@ namespace Film
         }
 
 
-        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e) // вызов диалоговой формы для оценивания фильма
         {
             FormDialogRate1 formDialogRate1 = new FormDialogRate1();
             formDialogRate1.ShowDialog();
         }
 
-        private void bReccomend_Click(object sender, EventArgs e)
+        private void bReccomend_Click(object sender, EventArgs e) // показать рекомандации
         {
-            label1.Text = nameuser;
+            
         }
     }
 }
