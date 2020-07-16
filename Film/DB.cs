@@ -22,6 +22,7 @@ namespace Film
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, DB.connection);
             if (f == 1) { adapter.Fill(FormLogin.table); }
             else if (f == 2) { adapter.Fill(FormPage.table); }
+            else if (f == 3) { adapter.Fill(FormPage.tages); }
 
         }
         public static void command (string sqlcom) //функция команды для бд

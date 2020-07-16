@@ -19,7 +19,7 @@ namespace Film
         }
         public static DataTable table = new DataTable();
         public static DataTable tages = new DataTable();
-        public static DataTable news = new DataTable();
+  //      public static DataTable news = new DataTable();
         string nameuser; // переменная, в которую передаётся логин, под которым зашел юзер
 
         public void FormPage_Load(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Film
 
 
                 //функция Join объеденяет массив в одну строку, помещая между каждым елементом заданный разделитель
-                string sqlcom = "UPDATE users SET history ='" + $"{String.Join("/", histor) + String.Join("/", tags)}/" + "' WHERE login= '" + nameuser + "';";
+                string sqlcom = "UPDATE users SET history ='" + $"{String.Join("/", histor) + String.Join("/", tags)}" + "' WHERE login= '" + nameuser + "';";
                 DB.command(sqlcom);
 
                 table = new DataTable();
@@ -89,93 +89,73 @@ namespace Film
             string sql = "SELECT history FROM users WHERE login= '" + nameuser + "';";
             DB.usradapt(sql, 2);
             string[] histor = table.Rows[0]["history"].ToString().Split('/');
+         //   string[] hz = new string[10]; // условно размер 10
 
 
 
-            //List<string> pruv = new List<string>();
-            //List<string> pruv2 = new List<string>();
-            //pruv2.Add("0");
+            List<string> pruv = new List<string>();
+            List<string> pruv2 = new List<string>();
+            pruv2.Add("0");
 
             table = new DataTable();
-            sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{5}%'";
-            DB.usradapt(sql, 2);
+            foreach (var word in histor)
+            {
+                int count = 0;
+                sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
+                DB.usradapt(sql, 3);
+
+                pruv.Add(tages.Rows[count]["NameFilm"].ToString());
 
 
-            //bool first = false;
-            //foreach (var word in histor) 
-            //{
-            //    label1.Text += $"\n{word}";
- 
-            //    sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-            //    DB.usradapt(sql, 2);
+                for (int i = 0; i < pruv.Count; i++)
+                {
+                    for (int j = 0; j < pruv2.Count; j++)
+                    {
+                        if (pruv[i] != pruv2[j])
+                        {
+                            pruv2.Add(pruv[i]);
+                            DB.usradapt(sql, 2);
+                        }
+                    }
+                }
 
-                //if (first == false)
+                //for (int i = 0; i < pruv.Count; i++)
                 //{
-                //   // first = true;
-                    
+                //    ProductA[] storeA = { new ProductA { Name = pruv[count] } };
+                //    ProductA[] storeB = { new ProductA { Name = pruv2[i] } };
+                //    bool equalAB = storeA.SequenceEqual(storeB);
 
-                //    //sql = "SELECT IdFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //    //DB.usradapt(sql, 3);
-
-                //         pruv.Add(word); //(tages.Rows[0]["IdFilm"].ToString());
-
-                //    //sql = "SELECT IdFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //    //DB.usradapt(sql, 4);
-
-                //    // pruv2.Add(news.Rows[0]["IdFilm"].ToString());
-
-
-                //}
-                //else 
-                //{
-                //    //sql = "SELECT IdFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //    //DB.usradapt(sql, 3);
-                //    //pruv.Add(tages.Rows[0]["IdFilm"].ToString());
-
-                //    //for (int i = 0; i < pruv2.Count;)
-                //    //{
-                //    //    for (int z = 0; z < pruv.Count;)
-                //    //    {
-                //    //        if (pruv2[i] != pruv[z])
-                //    //        {
-                //    //            sql = "SELECT IdFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //    //            DB.usradapt(sql, 4);
-                //    //            pruv2.Add(news.Rows[0]["IdFilm"].ToString());
-
-                //    //            sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //    //            DB.usradapt(sql, 2);
-
-                //    //        }
-                //    //        z++;
-                //    //    }
-                //    //    i++;
-                //    //}
-                //    for (int i=0; i< pruv.Count;) 
+                //    if (!equalAB)
                 //    {
-                //        if (pruv[i] != word) 
-                //        {
-                //            pruv.Add(word);
-
-                //            //sql = "SELECT IdFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //            //DB.usradapt(sql, 4);
-                //          //  pruv2.Add(news.Rows[0]["IdFilm"].ToString());
-
-                //            sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //            DB.usradapt(sql, 2);
-
-                //        }
-                //        i++;
+                //        DB.usradapt(sql, 2);
+                //        pruv.Add(pruv2[i]);
                 //    }
-
                 //}
+                count++;
 
-           // }
-            
+            }
+
             dgvResult.DataSource = table;
-            //dataGridView1.DataSource = tages;
+            dataGridView1.DataSource = tages;
             //dataGridView2.DataSource = news;
 
             DB.connection.Close();
         }
+
+        public class ProductA : IEquatable<ProductA>
+        {
+            public string Name { get; set; }
+            public bool Equals(ProductA other)
+            {
+                if (other is null)
+                    return false;
+
+                return this.Name == other.Name;
+            }
+
+            public override bool Equals(object obj) => Equals(obj as ProductA);
+            public override int GetHashCode() => (Name).GetHashCode();
+        }
+
     }
 }
