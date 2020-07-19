@@ -19,7 +19,6 @@ namespace Film
         }
         public static DataTable table = new DataTable();
         public static DataTable tages = new DataTable();
-      //public static DataTable news = new DataTable();
         string nameuser; // переменная, в которую передаётся логин, под которым зашел юзер
         string nameFilm = "x"; // переменная, в которую передаём название фильма, на который нажали
 
@@ -42,10 +41,10 @@ namespace Film
             table = new DataTable();
             string sql;
 
-            sql = "SELECT * FROM films WHERE NameFilm = '" + tbShare.Text.Replace(" ", "") + "';";
+            sql = "SELECT * FROM films WHERE NameFilm = ' " + tbShare.Text.Replace(" ", "") + " ';";
             DB.usradapt(sql, 2);
 
-            if (table.Rows.Count == 1)// существует,вывод фильма
+            if (table.Rows.Count >= 1)// существует,вывод фильма
             {
                 table = new DataTable(); // запрос истории поиска
                 sql = "SELECT history FROM users WHERE login= '" + nameuser + "';";
@@ -107,24 +106,31 @@ namespace Film
             foreach (var word in histor)
             {
                 int counts = 0;
+
                 sql = "SELECT NameFilm, srRate FROM films WHERE tags LIKE'" + $"%{word}%'";
                 DB.usradapt(sql, 2);
 
-               // pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
 
 
-                    //for (int j = 0; j < pruv2.Count; j++)
-                    //{
-                    //    if (pruv[counts] != pruv2[j])
-                    //    {
-                    //        pruv2.Add(pruv[counts]);
-                    //        DB.usradapt(sql, 2);
+                //sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
+                //DB.usradapt(sql, 3);
 
-                    //    }
-                    //}
+                // pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
 
 
-   
+                //for (int j = 0; j < pruv2.Count; j++)
+                //{
+                //    if (pruv[counts] != pruv2[j])
+                //    {
+                //        sql = "SELECT NameFilm, srRate FROM films WHERE tags LIKE'" + $"%{word}%'";
+                //        pruv2.Add(pruv[counts]);
+                //        DB.usradapt(sql, 2);
+
+                //    }
+                //}
+
+
+
 
 
                 //for (int i = 0; i < pruv.Count; i++)
@@ -146,7 +152,6 @@ namespace Film
 
             dgvResult.DataSource = table;
             dataGridView1.DataSource = tages;
-            //dataGridView2.DataSource = news;
 
             DB.connection.Close();
         }
