@@ -19,8 +19,9 @@ namespace Film
         }
         public static DataTable table = new DataTable();
         public static DataTable tages = new DataTable();
-  //      public static DataTable news = new DataTable();
+      //public static DataTable news = new DataTable();
         string nameuser; // переменная, в которую передаётся логин, под которым зашел юзер
+        string nameFilm = "x"; // переменная, в которую передаём название фильма, на который нажали
 
         public void FormPage_Load(object sender, EventArgs e)
         {
@@ -78,7 +79,11 @@ namespace Film
 
         private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e) // вызов диалоговой формы для оценивания фильма
         {
+            nameFilm = dgvResult.CurrentCell.Value.ToString();
+
             FormDialogRate1 formDialogRate1 = new FormDialogRate1();
+
+            formDialogRate1.clickFilm = nameFilm;
             formDialogRate1.ShowDialog();
         }
 
@@ -86,37 +91,41 @@ namespace Film
         {
             DB.conetc();
 
+
             table = new DataTable(); // запрос истории поиска
             string sql = "SELECT history FROM users WHERE login= '" + nameuser + "';";
             DB.usradapt(sql, 2);
             string[] histor = table.Rows[0]["history"].ToString().Split('/');
-         //   string[] hz = new string[10]; // условно размер 10
 
 
 
             List<string> pruv = new List<string>();
             List<string> pruv2 = new List<string>();
-            pruv2.Add("0");
+         //   pruv2.Add("0");
 
             table = new DataTable();
             foreach (var word in histor)
             {
                 int counts = 0;
-                sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                DB.usradapt(sql, 3);
+                sql = "SELECT NameFilm, srRate FROM films WHERE tags LIKE'" + $"%{word}%'";
+                DB.usradapt(sql, 2);
 
-                pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
+               // pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
 
 
-                    for (int j = 0; j < pruv2.Count; j++)
-                    {
-                        if (pruv[counts] != pruv2[j])
-                        {
-                            pruv2.Add(pruv[counts]);
-                            DB.usradapt(sql, 2);
+                    //for (int j = 0; j < pruv2.Count; j++)
+                    //{
+                    //    if (pruv[counts] != pruv2[j])
+                    //    {
+                    //        pruv2.Add(pruv[counts]);
+                    //        DB.usradapt(sql, 2);
 
-                        }
-                    }
+                    //    }
+                    //}
+
+
+   
+
 
                 //for (int i = 0; i < pruv.Count; i++)
                 //{
@@ -126,8 +135,8 @@ namespace Film
 
                 //    if (equalAB!=true)
                 //    {
-                        //pruv2.Add(pruv[counts]);
-                        //DB.usradapt(sql, 2);
+                //pruv2.Add(pruv[counts]);
+                //DB.usradapt(sql, 2);
                 //    }
                 //}
 
@@ -142,20 +151,20 @@ namespace Film
             DB.connection.Close();
         }
 
-        public class ProductA : IEquatable<ProductA>
-        {
-            public string Name { get; set; }
-            public bool Equals(ProductA other)
-            {
-                if (other is null)
-                    return false;
+        //public class ProductA : IEquatable<ProductA>
+        //{
+        //    public string Name { get; set; }
+        //    public bool Equals(ProductA other)
+        //    {
+        //        if (other is null)
+        //            return false;
 
-                return this.Name == other.Name;
-            }
+        //        return this.Name == other.Name;
+        //    }
 
-            public override bool Equals(object obj) => Equals(obj as ProductA);
-            public override int GetHashCode() => (Name).GetHashCode();
-        }
+        //    public override bool Equals(object obj) => Equals(obj as ProductA);
+        //    public override int GetHashCode() => (Name).GetHashCode();
+        //}
 
     }
 }

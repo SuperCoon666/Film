@@ -32,6 +32,7 @@
             this.bRate = new System.Windows.Forms.Button();
             this.bCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbRate
@@ -50,6 +51,7 @@
             this.bRate.TabIndex = 1;
             this.bRate.Text = "Rate this movie";
             this.bRate.UseVisualStyleBackColor = true;
+            this.bRate.Click += new System.EventHandler(this.bRate_Click);
             // 
             // bCancel
             // 
@@ -60,6 +62,7 @@
             this.bCancel.TabIndex = 2;
             this.bCancel.Text = "Come back";
             this.bCancel.UseVisualStyleBackColor = true;
+            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
             // label1
             // 
@@ -71,12 +74,22 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Rate this move and give it a raiting from 0  to 100 points!";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(94, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "label2";
+            // 
             // FormDialogRate1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(385, 202);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.bRate);
@@ -95,5 +108,6 @@
         private System.Windows.Forms.Button bRate;
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

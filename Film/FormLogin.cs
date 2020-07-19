@@ -19,17 +19,10 @@ namespace Film
             InitializeComponent();
         }
         public static DataTable table= new DataTable();
-        public static  string Ed = "!!!!";
+        string Ed = "!!!!";
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
-        }
-
-
-        public static string Ed1 // отправка логина юзера
-        {
-            get { return Ed; }
-            set { Ed = value; }
         }
 
         private void bLogin_Click(object sender, EventArgs e)
