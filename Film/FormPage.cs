@@ -38,6 +38,7 @@ namespace Film
         private void bShare_Click(object sender, EventArgs e)
         {
             DB.conetc();
+            table = new DataTable();
             string sql;
 
             sql = "SELECT * FROM films WHERE NameFilm = '" + tbShare.Text.Replace(" ", "") + "';";
@@ -100,38 +101,37 @@ namespace Film
             table = new DataTable();
             foreach (var word in histor)
             {
-                int count = 0;
+                int counts = 0;
                 sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
                 DB.usradapt(sql, 3);
 
-                pruv.Add(tages.Rows[count]["NameFilm"].ToString());
+                pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
 
 
-                for (int i = 0; i < pruv.Count; i++)
-                {
                     for (int j = 0; j < pruv2.Count; j++)
                     {
-                        if (pruv[i] != pruv2[j])
+                        if (pruv[counts] != pruv2[j])
                         {
-                            pruv2.Add(pruv[i]);
+                            pruv2.Add(pruv[counts]);
                             DB.usradapt(sql, 2);
+
                         }
                     }
-                }
 
                 //for (int i = 0; i < pruv.Count; i++)
                 //{
-                //    ProductA[] storeA = { new ProductA { Name = pruv[count] } };
+                //    ProductA[] storeA = { new ProductA { Name = pruv[counts] } };
                 //    ProductA[] storeB = { new ProductA { Name = pruv2[i] } };
                 //    bool equalAB = storeA.SequenceEqual(storeB);
 
-                //    if (!equalAB)
+                //    if (equalAB!=true)
                 //    {
-                //        DB.usradapt(sql, 2);
-                //        pruv.Add(pruv2[i]);
+                        //pruv2.Add(pruv[counts]);
+                        //DB.usradapt(sql, 2);
                 //    }
                 //}
-                count++;
+
+                counts++;
 
             }
 

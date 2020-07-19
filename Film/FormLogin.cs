@@ -70,7 +70,7 @@ namespace Film
         {
             DB.conetc();
 
-            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //проверка регистрации пользователя
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "';"; //проверка регистрации пользователя
             DB.usradapt(sql,1);
 
             if (table.Rows.Count == 1)// существует,вывод ошибки
