@@ -19,7 +19,7 @@ namespace Film
             InitializeComponent();
         }
         public static DataTable table= new DataTable();
-        string Ed = "!!!!";
+        string Ed = "!!!!"; 
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
@@ -66,14 +66,22 @@ namespace Film
             string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "';"; //проверка регистрации пользователя
             DB.usradapt(sql,1);
 
-            if (table.Rows.Count == 1)// существует,вывод ошибки
+            if (table.Rows.Count > 0)// существует,вывод ошибки
             {
                 MessageBox.Show("This user already exists");
             }
             else //не существует,регестрируем
             {
-                string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')";
-                DB.command(sqlcom);
+                if (tbLogin.Text == "" || tbPsw.Text == "") //если одно из полей незаполнено
+                {
+                    MessageBox.Show("Enter password and login");
+                }
+                else
+                {
+                    string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')";
+                    DB.command(sqlcom);
+                }
+
             }
             DB.connection.Close();
         }
@@ -83,7 +91,7 @@ namespace Film
             DB.conetc();
 
             string sql = "SELECT* FROM tags;";
-
+            
             DB.usradapt(sql,1);
 
             dataGridView1.DataSource = table;

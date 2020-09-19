@@ -95,9 +95,9 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Location = new System.Drawing.Point(396, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 15);
+            this.label1.Size = new System.Drawing.Size(2, 15);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Какой-то результат - ";
+            this.label1.Visible = false;
             // 
             // dataGridView1
             // 

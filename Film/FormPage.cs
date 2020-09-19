@@ -41,10 +41,14 @@ namespace Film
             table = new DataTable();
             string sql;
 
-            sql = "SELECT * FROM films WHERE NameFilm = ' " + tbShare.Text.Replace(" ", "") + " ';";
+            sql = "SELECT * FROM films WHERE NameFilm = ' " + tbShare.Text + " ';";
             DB.usradapt(sql, 2);
 
-            if (table.Rows.Count >= 1)// существует,вывод фильма
+            table = new DataTable();
+            sql = "SELECT NameFilm FROM films WHERE NameFilm = '" + tbShare.Text + "';";
+            DB.usradapt(sql, 2);
+
+            if (tbShare.Text.Trim().Length!=0 && table.Rows.Count !=0 )// существует,вывод фильма
             {
                 table = new DataTable(); // запрос истории поиска
                 sql = "SELECT history FROM users WHERE login= '" + nameuser + "';";
@@ -58,7 +62,23 @@ namespace Film
 
 
                 //функция Join объеденяет массив в одну строку, помещая между каждым елементом заданный разделитель
-                string sqlcom = "UPDATE users SET history ='" + $"{String.Join("/", histor) + String.Join("/", tags)}" + "' WHERE login= '" + nameuser + "';";
+                List<string> newtag = new List<string>();
+                bool gothcha = false;
+                foreach (var tag in tags) 
+                {
+                    foreach (var tag2 in histor) 
+                    {
+                        gothcha = Equals(tag, tag2);
+                        if (gothcha == true) { break; };
+                    };
+                    if (gothcha==false) 
+                    {
+                        newtag.Add(tag);
+                    };
+                };
+
+                //foreach(var rr in newtag) { label1.Text += rr + " "; };
+                string sqlcom = "UPDATE users SET history ='" + $"{String.Join("/", histor) + String.Join("/", newtag)}" + "' WHERE login= '" + nameuser + "';";
                 DB.command(sqlcom);
 
                 table = new DataTable();
@@ -100,76 +120,60 @@ namespace Film
 
             List<string> pruv = new List<string>();
             List<string> pruv2 = new List<string>();
-         //   pruv2.Add("0");
 
             table = new DataTable();
             foreach (var word in histor)
             {
-                int counts = 0;
+                pruv.Clear();
 
                 sql = "SELECT NameFilm, srRate FROM films WHERE tags LIKE'" + $"%{word}%'";
-                DB.usradapt(sql, 2);
+                DB.usradapt(sql, 3);
 
+                for (int i =0; i< tages.Rows.Count; i++) 
+                {
+                    string m = tages.Rows[i]["NameFilm"].ToString();
+                    pruv.Add(m);
+                }
 
+                bool srw=false;
+                string second="f";
 
-                //sql = "SELECT NameFilm FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //DB.usradapt(sql, 3);
+                if (pruv2.Count() == 0) { pruv2.Add(pruv[0]); }
 
-                // pruv.Add(tages.Rows[counts]["NameFilm"].ToString());
-
-
-                //for (int j = 0; j < pruv2.Count; j++)
-                //{
-                //    if (pruv[counts] != pruv2[j])
-                //    {
-                //        sql = "SELECT NameFilm, srRate FROM films WHERE tags LIKE'" + $"%{word}%'";
-                //        pruv2.Add(pruv[counts]);
-                //        DB.usradapt(sql, 2);
-
-                //    }
-                //}
-
-
-
-
-
-                //for (int i = 0; i < pruv.Count; i++)
-                //{
-                //    ProductA[] storeA = { new ProductA { Name = pruv[counts] } };
-                //    ProductA[] storeB = { new ProductA { Name = pruv2[i] } };
-                //    bool equalAB = storeA.SequenceEqual(storeB);
-
-                //    if (equalAB!=true)
-                //    {
-                //pruv2.Add(pruv[counts]);
-                //DB.usradapt(sql, 2);
-                //    }
-                //}
-
-                counts++;
-
+                foreach (var wr in pruv)
+                {
+                    if (Equals(wr, second) == false)
+                    {
+                        foreach (var l in pruv2.ToArray())
+                        {
+                            srw = Equals(wr, l);
+                            if (srw == true) { break; };
+                        };
+                        if (srw == false) { pruv2.Add(wr); };
+                    }
+                    second = wr;
+                };
             }
 
-            dgvResult.DataSource = table;
-            dataGridView1.DataSource = tages;
+            //foreach (var x in pruv2) { label1.Text += x+" "; };
+
+            dgvResult.ColumnCount = pruv2.Count();
+            dgvResult.Columns[0].Name = "NameFilms";
+
+            tages.Clear();
+            int iii=0;
+            foreach (var x in pruv2)
+            {            
+                sql = "SELECT srRate FROM films WHERE NameFilm = '" + x + "';";
+                DB.usradapt(sql, 3);
+
+                string m = tages.Rows[iii]["srRate"].ToString();
+                iii++;
+                dgvResult.Rows.Add(x,m);
+            };
+            //dataGridView1.DataSource = tages;
 
             DB.connection.Close();
         }
-
-        //public class ProductA : IEquatable<ProductA>
-        //{
-        //    public string Name { get; set; }
-        //    public bool Equals(ProductA other)
-        //    {
-        //        if (other is null)
-        //            return false;
-
-        //        return this.Name == other.Name;
-        //    }
-
-        //    public override bool Equals(object obj) => Equals(obj as ProductA);
-        //    public override int GetHashCode() => (Name).GetHashCode();
-        //}
-
     }
 }

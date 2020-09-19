@@ -14,7 +14,7 @@ namespace Film
         public static void conetc() //функция соединения с бд
         {
             // SQLiteConnection connection = new SQLiteConnection();
-            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Film\FilmsBd.db";
+            connection.ConnectionString = @"Data Source = C:\Users\Vlad\Desktop\Проекты\C#\Film\FilmsBd.db";
             connection.Open();
         }
         public static void usradapt(string sql, int f) //функция запроса для бд

@@ -17,7 +17,7 @@ namespace Film
             InitializeComponent();
         }
         string name;
-        public string clickFilm // получение логин пользователя
+        public string clickFilm // получение названия фильма
         {
             get { return name; }
             set { name = value; }
@@ -30,6 +30,7 @@ namespace Film
 
         private void bRate_Click(object sender, EventArgs e)
         {
+            //label1.Text = name;
             if (Convert.ToInt32(tbRate.Text) <= 100 && Convert.ToInt32(tbRate.Text)>0)
             {
                 DB.conetc();
