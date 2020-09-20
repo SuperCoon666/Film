@@ -113,14 +113,14 @@ namespace Film
             DB.conetc();
 
             //очиста dgv
-            if (dgvResult.DataSource != null)
-            {
-                dgvResult.DataSource = null;
-            }
-            else
-            {
-                dgvResult.Rows.Clear();
-            }
+            //if (dgvResult.DataSource != null)
+            //{
+            //    dgvResult.DataSource = null;
+            //}
+            //else
+            //{
+            //    dgvResult.Rows.Clear();
+            //}
 
             // запрос истории поиска
             table = new DataTable(); 
@@ -150,7 +150,7 @@ namespace Film
                 bool srw=false;
                 string second="f"; //переменная для хранения прошлого названия фильма
 
-                if (pruv2.Count() == 0) { pruv2.Add(pruv[0]); }//добавление первого фильма
+                if (pruv2.Count() == 0) { pruv2.Add(pruv[0]); continue; }//добавление первого фильма
 
                 foreach (var wr in pruv) //берём имя фильма из списка совпадений
                 {
