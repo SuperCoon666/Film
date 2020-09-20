@@ -30,7 +30,7 @@ namespace Film
             // этo осуществляют коннект к бд
             DB.conetc();
 
-            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text.Trim(' ') + "' AND psw = '" + tbPsw.Text + "';"; //ввод запроса логина и пароля
             DB.usradapt(sql,1);
 
             if (table.Rows.Count == 1) //проверка регистрации пользователя
@@ -39,7 +39,7 @@ namespace Film
                 formPage.Show();
                 this.Hide();
 
-                Ed = tbLogin.Text;
+                Ed = tbLogin.Text.Trim(' ');
                 formPage.textbox1value = Ed;
 
                 DB.connection.Close();
@@ -63,7 +63,7 @@ namespace Film
         {
             DB.conetc();
 
-            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text + "';"; //проверка регистрации пользователя
+            string sql = "SELECT * FROM users WHERE login = '" + tbLogin.Text.Trim(' ') + "';"; //проверка регистрации пользователя
             DB.usradapt(sql,1);
 
             if (table.Rows.Count > 0)// существует,вывод ошибки
@@ -78,7 +78,7 @@ namespace Film
                 }
                 else
                 {
-                    string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text + "','" + tbPsw.Text + "')";
+                    string sqlcom = "INSERT INTO users (login, psw) VALUES ('" + tbLogin.Text.Trim(' ') + "','" + tbPsw.Text + "')";
                     DB.command(sqlcom);
                 }
 

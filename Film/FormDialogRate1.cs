@@ -47,7 +47,7 @@ namespace Film
                 DB.connection.Close();
                 this.Close();
             }
-            else { MessageBox.Show("You can only bet points from 0 to 100"); }
+            else { MessageBox.Show("You can only bet points from 1 to 100"); }
         }
 
         private void bCancel_Click(object sender, EventArgs e)
